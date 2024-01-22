@@ -3,7 +3,7 @@ import resources from './draw/resources';
 import { Sprite , Vector2} from './draw/sprite';
 import { GameLoop } from './GameLoop';
 import { Input, LEFT, RIGHT, UP, DOWN } from './control/input';
-import {gridCells, gridSize, isSpaceFree} from './helper/grid';
+import {gridCells, gridSize, isSpaceFree, drawGrid} from './helper/grid';
 import {moveTowards} from './helper/towards';
 import {walls} from './levels/level1';
 import {FrameIndexPattern} from './FrameIndexPattern';
@@ -41,6 +41,12 @@ const skySprite = new Sprite({
 const groundSprite = new Sprite({
 	resource: resources.images.ground,
 	frameSize: new Vector2(320, 180),
+});
+
+const treeSprite = new Sprite({
+	resource: resources.images.tree,
+	frameSize: new Vector2(32, 32),
+	position: new Vector2(0, 16),
 });
 
 const heroSprite = new Sprite({
@@ -118,6 +124,14 @@ const move = ()=>{
 	if (isSpaceFree( walls, nextX, nextY)){
 		heroDestination.x = nextX;
 		heroDestination.y = nextY;
+	}else{
+		console.log('blocked');
+		
+		// draw a red square
+		ctx.fillStyle = 'red';
+		// line width
+		ctx.lineWidth = 7;
+		ctx.fillRect(nextX, nextY, gridSize, gridSize);
 	}
 }
 
@@ -127,6 +141,7 @@ const draw = () => {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	skySprite.drawImage(ctx, 0, 0);
 	groundSprite.drawImage(ctx, 0, 0);
+	treeSprite.drawImage(ctx);
 
 	// controls on hero
 	const heroOffset = new Vector2(8,-21);
@@ -136,14 +151,8 @@ const draw = () => {
 
 	shadowSprite.drawImage(ctx, heroPosX, heroPosY);
 	heroSprite.drawImage(ctx, heroPosX, heroPosY);
+	drawGrid(ctx, canvas.width, canvas.height);
 }
-
-// game loop
-
-// setInterval(()=>{
-// 	heroSprite.frame = (heroSprite.frame + 1) % 13;
-// 	draw();
-// },100);
 
 const gameLoop = new GameLoop(update, draw);
 

@@ -66,7 +66,7 @@ export class Sprite {
     this.frame = this.animations.frame;
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
+  drawImage(ctx: CanvasRenderingContext2D, x: number = this.position.x, y: number = this.position.y) {
     if (!this.resource.isLoaded) {
       return;
     }

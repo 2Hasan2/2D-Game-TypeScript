@@ -8,6 +8,8 @@ class Resources {
 			ground: 'assets/ground.png',
 			hero: 'assets/hero.png',
 			shadows: 'assets/shadows.png',
+			tree: 'assets/tree.png',
+			spritesheet: 'assets/spritesheet.png',
 		};
 		this.images = {};
 
