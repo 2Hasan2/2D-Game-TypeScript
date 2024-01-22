@@ -2,9 +2,24 @@
 import resources from './draw/resources';
 import { Sprite , Vector2} from './draw/sprite';
 import { GameLoop } from './GameLoop';
-import { Input } from './control/input';
-import {gridCells, gridSize} from './helper/grid';
+import { Input, LEFT, RIGHT, UP, DOWN } from './control/input';
+import {gridCells, gridSize, isSpaceFree} from './helper/grid';
 import {moveTowards} from './helper/towards';
+import {walls} from './levels/level1';
+import {FrameIndexPattern} from './FrameIndexPattern';
+import {Animations} from './Animations';
+import 
+{
+	walk_down,
+	walk_left,
+	walk_right,
+	walk_up,
+	stand_down,
+	stand_left,
+	stand_right,
+	stand_up,
+}
+from './objects/hero/heroAnimation';
 
 
 // canvas init 
@@ -35,10 +50,22 @@ const heroSprite = new Sprite({
 	vFrames: 8,
 	frame: 1,
 	position: new Vector2(gridCells(5), gridCells(5)),
+	animations: new Animations({
+		walk_down: new FrameIndexPattern(walk_down),
+		walk_left: new FrameIndexPattern(walk_left),
+		walk_right: new FrameIndexPattern(walk_right),
+		walk_up: new FrameIndexPattern(walk_up),
+		stand_down: new FrameIndexPattern(stand_down),
+		stand_left: new FrameIndexPattern(stand_left),
+		stand_right: new FrameIndexPattern(stand_right),
+		stand_up: new FrameIndexPattern(stand_up),
+	}),
 });
 
 
 const heroDestination = heroSprite.position.duplicate();
+
+let heroDirection = 'DOWN';
 
 const shadowSprite = new Sprite({
 	resource: resources.images.shadows,
@@ -49,7 +76,7 @@ const shadowSprite = new Sprite({
 const control = new Input();
 
 // update
-const update = (timeStep: number) => {
+const update = (delta: number) => {
 
 	const distance = moveTowards(heroSprite, heroDestination, 1);
 
@@ -57,28 +84,41 @@ const update = (timeStep: number) => {
 	if (hasArrived) {
 		move();
 	}
+
+	// hero animation
+	heroSprite.step(delta);
 }
 
 const move = ()=>{
-	if (!control.direction)return;
+	if (!control.direction){
+		
+		if(heroDirection === LEFT){heroSprite.animations.play('stand_left');}
+		if(heroDirection === DOWN){heroSprite.animations.play('stand_down');}
+		if(heroDirection === RIGHT){heroSprite.animations.play('stand_right');}
+		if(heroDirection === UP){heroSprite.animations.play('stand_up');}
+		
+		return;
+	}
 	let nextX = heroDestination.x
 	let nextY = heroDestination.y;
 
-	if (control.up()){ nextY -= gridSize; heroSprite.frame = 6;}
-	if (control.down()){ nextY += gridSize; heroSprite.frame = 0;}
-	if (control.left()){ nextX -= gridSize; heroSprite.frame = 9;}
-	if (control.right()){ nextX += gridSize; heroSprite.frame = 3;}
+	if (control.up()){ nextY -= gridSize;}
+	if (control.down()){ nextY += gridSize;}
+	if (control.left()){ nextX -= gridSize;}
+	if (control.right()){ nextX += gridSize;}
 
-	// if this next is allowed then move
-	// if (gridCells(1) <= nextX && nextX < gridCells(10) && gridCells(1) <= nextY && nextY < gridCells(10)){
-	// 	heroDestination.x = nextX;
-	// 	heroDestination.y = nextY;
-	// }
+	heroDirection = control.direction ?? heroDirection;
+	
+	if(heroDirection === LEFT){heroSprite.animations.play('walk_left');}
+	if(heroDirection === DOWN){heroSprite.animations.play('walk_down');}
+	if(heroDirection === RIGHT){heroSprite.animations.play('walk_right');}
+	if(heroDirection === UP){heroSprite.animations.play('walk_up');}
+	
 
-	heroDestination.x = nextX;
-	heroDestination.y = nextY;
-
-
+	if (isSpaceFree( walls, nextX, nextY)){
+		heroDestination.x = nextX;
+		heroDestination.y = nextY;
+	}
 }
 
 

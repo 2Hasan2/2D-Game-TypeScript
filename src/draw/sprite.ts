@@ -58,6 +58,7 @@ export class Sprite {
   }
 
   step(delta: number) {
+    
     if (!this.animations) {
       return;
     }
