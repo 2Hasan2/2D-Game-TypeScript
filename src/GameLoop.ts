@@ -1,51 +1,52 @@
 export class GameLoop {
-	lastFrameTimeMs: number;
-	accumulatedTime: number;
-	timeStep: number;
-	update: (timeStep: number) => void;
-	render: () => void;
-	rafId: number | null;
-	isRunning: boolean;
+  private lastFrameTime: number = 0;
+  private accumulatedTime: number = 0;
+  private timeStep: number = 1000/60; // 60 frames per second
 
-	constructor(update: (timeStep: number) => void, render: () => void) {
-		this.lastFrameTimeMs = 0;
-		this.accumulatedTime = 0;
-		this.timeStep = 1000 / 60;
-		this.update = update;
-		this.render = render;
-		this.rafId = null;
-		this.isRunning = false;
-	}
+  private update: (timeStep: number) => void;
+  private render: () => void;
 
-	mainLoop = (timestamp: number) => {
-		if (!this.isRunning) return;
+  private rafId: number | null = null;
+  private isRunning: boolean = false;
 
-		let deltaTimestamp = timestamp - this.lastFrameTimeMs;
-		this.lastFrameTimeMs = timestamp;
+  constructor(update: (timeStep: number) => void, render: () => void) {
+    this.update = update;
+    this.render = render;
+  }
 
-		this.accumulatedTime += deltaTimestamp;
+  mainLoop = (timestamp: number) => {
+    if (!this.isRunning) return;
 
-		while (this.accumulatedTime >= this.timeStep) {
-			this.update(this.timeStep);
-			this.accumulatedTime -= this.timeStep;
-		}
+    let deltaTime = timestamp - this.lastFrameTime;
+    this.lastFrameTime = timestamp;
 
-		this.render();
+    // Accumulate all the time since the last frame.
+    this.accumulatedTime += deltaTime;
 
-		this.rafId = requestAnimationFrame(this.mainLoop);
-	};
+    // Fixed time step updates.
+    // If there's enough accumulated time to run one or more fixed updates, run them.
+    while (this.accumulatedTime >= this.timeStep) {
+      this.update(this.timeStep); // Here, we pass the fixed time step size.
+      this.accumulatedTime -= this.timeStep;
+    }
 
-	start() {
-		if (!this.isRunning) {
-			this.isRunning = true;
-			this.rafId = requestAnimationFrame(this.mainLoop);
-		}
-	}
+    // Render
+    this.render();
 
-	stop() {
-		if (this.rafId) {
-			cancelAnimationFrame(this.rafId);
-		}
-		this.isRunning = false;
-	}
+    this.rafId = requestAnimationFrame(this.mainLoop);
+  }
+
+  start() {
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.rafId = requestAnimationFrame(this.mainLoop);
+    }
+  }
+
+  stop() {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+    }
+    this.isRunning = false;
+  }
 }

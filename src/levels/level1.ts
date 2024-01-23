@@ -1,27 +1,13 @@
-import { gridCells } from "../helper/grid";
-export const walls = new Set() as Set<string>;
+export const walls = new Set();
 
-let points: [number, number][] = [
-	[4, 3],
-	[4, 4],
-	[4, 5],
-	[5, 4],
-	[5, 5],
-	[7, 5],
-	[8, 5],
-	[9, 5],
-	[10, 5],
-	[8, 3],
-	[9,3],
-	[12,6],
-	[13,6],
-	[14,6],
-	[14,2],
-	[14,4],
-	[13,4]
-];
+walls.add(`64,48`); // tree
 
-// loop through points and add to walls
-points.forEach((point)=>{
-	walls.add(`${gridCells(point[0])},${gridCells(point[1])}`);
-});
+walls.add(`64,64`); // squares
+walls.add(`64,80`);
+walls.add(`80,64`);
+walls.add(`80,80`);
+
+walls.add(`112,80`); // water
+walls.add(`128,80`);
+walls.add(`144,80`);
+walls.add(`160,80`);

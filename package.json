@@ -1,8 +1,8 @@
 {
-  "name": "cad",
+  "name": "demo-2d-game",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --open --mode development"
