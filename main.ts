@@ -1,15 +1,15 @@
-import './style.css'
-import {resources} from "./src/Resource.js";
-import {Sprite} from "./src/Sprite.js";
-import {Vector2} from "./src/Vector2.js";
-import {GameLoop} from "./src/GameLoop.js";
-import {Input} from "./src/Input.js";
-import {gridCells} from "./src/helpers/grid.js";
-import {GameObject} from "./src/GameObject.js";
-import {Hero} from "./src/objects/Hero/Hero.js";
-import {Camera} from "./src/Camera.js";
-import {Rod} from "./src/objects/Rod/Rod.js";
-import {Inventory} from "./src/objects/Inventory/Inventory.js";
+import { GameLoop } from "./src/GameLoop";
+import { GameObject } from "./src/GameObject";
+import { Vector2 } from "./src/Vector2";
+import { Sprite } from "./src/Sprite";
+import { Input } from "./src/Input";
+import { Hero } from "./src/objects/Hero/Hero";
+import { Camera } from "./src/Camera";
+import { Rod } from "./src/objects/Rod/Rod";
+import { gridCells } from "./src/helpers/grid";
+import { Inventory } from "./src/objects/Inventory/Inventory";
+import { resources } from "./src/Resource";
+
 
 // Grabbing the canvas to draw to
 const canvas = document.querySelector("#game-canvas") as HTMLCanvasElement | null;

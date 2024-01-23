@@ -1,8 +1,8 @@
-import {GameObject} from "../../GameObject.js";
-import {Sprite} from "../../Sprite.js";
-import {resources} from "../../Resource.js";
-import {Vector2} from "../../Vector2.js";
-import {events} from "../../Events.js";
+import {GameObject} from "../../GameObject";
+import {Sprite} from "../../Sprite";
+import {resources} from "../../Resource";
+import {Vector2} from "../../Vector2";
+import {events} from "../../Events";
 
 export class Inventory extends GameObject {
   constructor() {

@@ -1,5 +1,5 @@
-import { Vector2 } from "./Vector2.js";
-import {GameObject} from "./GameObject.js";
+import { Vector2 } from "./Vector2";
+import {GameObject} from "./GameObject";
 
   export class Sprite extends GameObject {
     name: string; // Add the 'name' property

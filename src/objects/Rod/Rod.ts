@@ -1,8 +1,8 @@
-import {GameObject} from "../../GameObject.js";
-import {Vector2} from "../../Vector2.js";
-import {Sprite} from "../../Sprite.js";
-import {resources} from "../../Resource.js";
-import {events} from "../../Events.js";
+import {GameObject} from "../../GameObject";
+import {Vector2} from "../../Vector2";
+import {Sprite} from "../../Sprite";
+import {resources} from "../../Resource";
+import {events} from "../../Events";
 
 export class Rod extends GameObject {
   constructor(x,y) {

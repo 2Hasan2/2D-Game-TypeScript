@@ -1,6 +1,6 @@
-import {GameObject} from "./GameObject.js";
-import {events} from "./Events.js";
-import {Vector2} from "./Vector2.js";
+import {GameObject} from "./GameObject";
+import {events} from "./Events";
+import {Vector2} from "./Vector2";
 
 export class Camera extends GameObject {
   constructor() {

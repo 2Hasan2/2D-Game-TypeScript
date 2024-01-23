@@ -2,7 +2,7 @@
   "name": "demo-2d-game",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "main.ts",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --open --mode development"

@@ -1,5 +1,5 @@
-import { Vector2 } from "./Vector2.js";
-import { events } from "./Events.js";
+import { Vector2 } from "./Vector2";
+import { events } from "./Events";
 
 export class GameObject {
   position: Vector2;
