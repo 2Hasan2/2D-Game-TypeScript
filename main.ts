@@ -12,8 +12,9 @@ import { resources } from "./src/Resource";
 
 
 // Grabbing the canvas to draw to
-const canvas = document.querySelector("#game-canvas") as HTMLCanvasElement | null;
-const ctx = canvas?.getContext("2d");
+const canvas = document.querySelector("#game-canvas") as HTMLCanvasElement;
+const ctx = canvas?.getContext("2d") as CanvasRenderingContext2D;
+
 
 // Establish the root scene
 const mainScene = new GameObject({
@@ -22,13 +23,27 @@ const mainScene = new GameObject({
 
 // Build up the scene by adding a sky, ground, and hero
 const skySprite = new Sprite({
+  name: "sky",
   resource: resources.images.sky,
-  frameSize: new Vector2(320, 180)
+  frameSize: new Vector2(320, 180),
+  hFrames: 1,
+  vFrames: 1,
+  frame: 0,
+  scale: 1,
+  position: new Vector2(0, 0),
+  animations: {}
 })
 
 const groundSprite = new Sprite({
+  name: "ground",
   resource: resources.images.ground,
-  frameSize: new Vector2(320, 180)
+  frameSize: new Vector2(320, 180),
+  hFrames: 1,
+  vFrames: 1,
+  frame: 0,
+  scale: 1,
+  position: new Vector2(0, 0),
+  animations: {}
 })
 mainScene.addChild(groundSprite);
 
@@ -45,7 +60,7 @@ const inventory = new Inventory();
 
 
 // Add an Input class to the main scene
-mainScene.input = new Input();
+// mainScene.input = new Input();
 
 
 // Establish update and draw loops

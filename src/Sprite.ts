@@ -14,7 +14,7 @@ import {GameObject} from "./GameObject";
     animations: any; // Add the 'animations' property
 
     constructor({
-      name, // Add the 'name' parameter
+      name,
       resource,
       frameSize,
       hFrames,
@@ -23,10 +23,21 @@ import {GameObject} from "./GameObject";
       scale,
       position,
       animations,
+    }: {
+      name: string,
+      resource: any,
+      frameSize: Vector2,
+      hFrames: number,
+      vFrames: number,
+      frame: number,
+      scale: number,
+      position: Vector2,
+      animations: any,
     }) {
       super({
         position,
       });
+      this.name = name;
       this.resource = resource;
       this.frameSize = frameSize ?? new Vector2(16, 16);
       this.hFrames = hFrames ?? 1;
@@ -52,7 +63,7 @@ import {GameObject} from "./GameObject";
       }
     }
 
-    step(delta) {
+    step(delta: any) {
       if (!this.animations) {
         return;
       }
@@ -60,7 +71,7 @@ import {GameObject} from "./GameObject";
       this.frame = this.animations.frame;
     }
 
-    drawImage(ctx, x, y) {
+    drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
       if (!this.resource.isLoaded) {
         return;
       }

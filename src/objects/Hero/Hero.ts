@@ -110,8 +110,9 @@ export class Hero extends GameObject {
     events.emit("HERO_POSITION", this.position);
   }
 
-  tryMove(root) {
-    const { input } = root;
+  tryMove(root : GameObject) {
+    let {input} = root as any;
+    
 
     if (!input.direction) {
       if (this.facingDirection === "LEFT") {

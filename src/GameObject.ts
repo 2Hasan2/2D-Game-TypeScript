@@ -1,17 +1,20 @@
 import { Vector2 } from "./Vector2";
 import { events } from "./Events";
+import { Input } from "./Input";
 
 export class GameObject {
   position: Vector2;
   children: GameObject[];
   parent: GameObject | null;
   hasReadyBeenCalled: boolean;
+  input: Input;
 
   constructor({ position }: { position?: Vector2 }) {
     this.position = position ?? new Vector2(0, 0);
     this.children = [];
     this.parent = null;
     this.hasReadyBeenCalled = false;
+    this.input = new Input();
   }
 
   // First entry point of the loop

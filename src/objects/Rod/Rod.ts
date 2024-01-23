@@ -5,17 +5,22 @@ import {resources} from "../../Resource";
 import {events} from "../../Events";
 
 export class Rod extends GameObject {
-  constructor(x,y) {
+  constructor(x: number, y: number) {
     super({
-      name: "Rod",
-      position: new Vector2(x,y)
+      position: new Vector2(x, y)
     });
     const sprite = new Sprite({
+      name: "Rod",
       resource: resources.images.rod,
-      position: new Vector2(0, -5) // nudge upwards visually
-    })
+      frameSize: new Vector2(0, 0),
+      hFrames: 0,
+      vFrames: 0,
+      frame: 0,
+      scale: 1,
+      position: new Vector2(0, -5), // nudge upwards visually
+      animations: {}
+    });
     this.addChild(sprite);
-
   }
 
   ready() {
@@ -26,7 +31,7 @@ export class Rod extends GameObject {
       if (roundedHeroX === this.position.x && roundedHeroY === this.position.y) {
         this.onCollideWithHero();
       }
-    })
+    });
   }
 
   onCollideWithHero() {
