@@ -23,11 +23,11 @@ export const drawGrid = (ctx: CanvasRenderingContext2D, width: number, height: n
 		ctx.lineTo(width, y);
 		ctx.stroke();
 	}
-	ctx.font = '6px Arial';
+	ctx.font = '10px Arial';
 	ctx.fillStyle = 'red';
 	for (let x = 0; x < width; x += gridSize) {
 		for (let y = 0; y < height; y += gridSize) {
-			ctx.fillText(`${x},${y}`, x + 2, y + 10);
+			ctx.fillText(`${x/16}.${y/16}`, x + 2, y + 10);
 		}
 	}
 }

@@ -43,19 +43,13 @@ const groundSprite = new Sprite({
 	frameSize: new Vector2(320, 180),
 });
 
-const treeSprite = new Sprite({
-	resource: resources.images.tree,
-	frameSize: new Vector2(32, 32),
-	position: new Vector2(0, 16),
-});
-
 const heroSprite = new Sprite({
 	resource: resources.images.hero,
 	frameSize: new Vector2(gridCells(2), gridCells(2)),
 	hFrames: 3,
 	vFrames: 8,
 	frame: 1,
-	position: new Vector2(gridCells(5), gridCells(5)),
+	position: new Vector2(gridCells(1), gridCells(0)),
 	animations: new Animations({
 		walk_down: new FrameIndexPattern(walk_down),
 		walk_left: new FrameIndexPattern(walk_left),
@@ -141,10 +135,9 @@ const draw = () => {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	skySprite.drawImage(ctx, 0, 0);
 	groundSprite.drawImage(ctx, 0, 0);
-	treeSprite.drawImage(ctx);
 
 	// controls on hero
-	const heroOffset = new Vector2(8,-21);
+	const heroOffset = new Vector2(-8,-18);
 	const heroPosX = heroSprite.position.x + heroOffset.x;
 	const heroPosY = heroSprite.position.y + heroOffset.y;
 
