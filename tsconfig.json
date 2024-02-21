@@ -7,6 +7,6 @@
     "include": [
       "src/**/*.{ts,tsx,js}"],
     "files": [
-      "./src/main.ts"
+      "./main.ts"
     ]
 }
